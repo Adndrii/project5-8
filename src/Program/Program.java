@@ -11,7 +11,7 @@ public class Program {
     public static void main(String[] args) throws IOException{
         ArrayList<recipe> book = new ArrayList();
         Gson GSON = new Gson();
-        try (FileReader r = new FileReader("C:\\Users\\Admin\\Desktop\\info.json")){
+        try (FileReader r = new FileReader("C:\\java\\project5-8\\info.json")){
             book = GSON.fromJson(r, new TypeToken<ArrayList<recipe>>(){}.getType());
         }catch(IOException e){
             throw new RuntimeException(e);
@@ -52,7 +52,7 @@ public class Program {
                 System.out.println("Зупиненно");
                 String lp = GSON.toJson(func.book);
                 try {
-                    FileWriter w = new FileWriter("C:\\Users\\Admin\\Desktop\\info.json");
+                    FileWriter w = new FileWriter("C:\\java\\project5-8\\info.json");
                     w.write(lp);
                     w.close();
                 }catch (IOException e){
