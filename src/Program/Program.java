@@ -9,22 +9,21 @@ import java.util.*;
 
 public class Program {
     public static void main(String[] args) throws IOException{
-        ArrayList<contact> contacts = new ArrayList();
+        ArrayList<recipe> book = new ArrayList();
         Gson GSON = new Gson();
         try (FileReader r = new FileReader("C:\\Users\\Admin\\Desktop\\info.json")){
-            contacts = GSON.fromJson(r, new TypeToken<ArrayList<contact>>(){}.getType());
+            book = GSON.fromJson(r, new TypeToken<ArrayList<recipe>>(){}.getType());
         }catch(IOException e){
             throw new RuntimeException(e);
         }
 
 
 
-        Functions func = new Functions(contacts);
+        Functions func = new Functions(book);
         Scanner scan = new Scanner(System.in);
         System.out.println("help(.h) - для перегляду комманд");
         while (true) {
-            System.out.println("------------------------------------");
-            System.out.println("  Command: ");
+            System.out.println("Command: ");
             String c = scan.nextLine();
             if (c.equals("help") ||  c.equals(".h")) {
                 System.out.println("help(.h),add(.a),list(.l),update(.u),delete(.d),sort(.srt),search(.sr),exit(.e)");
@@ -33,7 +32,7 @@ public class Program {
                 func.add(scan);
             }
             else if (c.equals("list") || c.equals(".l")){
-                func.list(scan);
+                func.list();
             }
             else if (c.equals("update")||  c.equals(".u")) {
                 func.update(scan);
@@ -51,7 +50,7 @@ public class Program {
             }
             else if (c.equals("exit") || c.equals(".e")) {
                 System.out.println("Зупиненно");
-                String lp = GSON.toJson(func.contacts);
+                String lp = GSON.toJson(func.book);
                 try {
                     FileWriter w = new FileWriter("C:\\Users\\Admin\\Desktop\\info.json");
                     w.write(lp);

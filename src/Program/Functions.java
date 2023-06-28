@@ -3,54 +3,60 @@ package Program;
 import java.util.*;
 
 public class Functions {
-    List<contact> contacts = new ArrayList();
+    List<recipe> book = new ArrayList();
 
-    public Functions(List<contact> contacts){
-        this.contacts = contacts;
+    public Functions(List<recipe> book){
+        this.book = book;
     }
 
     public void add(Scanner scan){
-        System.out.println("Name:");
+        System.out.println("Назва рецепту:");
         String name = scan.nextLine();
-        System.out.println("Surname:");
-        String surname = scan.nextLine();
-        System.out.println("Mail:");
-        String mail = scan.nextLine();
-        System.out.println("Number:");
-        String number = scan.nextLine();
-        System.out.println("help(.h),add(.a),create(.c),update(.u),delete(.d),sort(.srt),search(.sr),exit(.e)");
-        contacts.add(new contact(name, surname, mail, number));
+        System.out.println("Інгридієнти:");
+        String ing = scan.nextLine();
+        System.out.println("Спосіб приготування:");
+        String method = scan.nextLine();
+        List<String> ingredient = Arrays.asList(ing.split(", "));
+        book.add(new recipe(name, ingredient, method));
     }
-    public void list(Scanner scan){
-        for(contact i : contacts){
-            System.out.println(i.getName() + " " + i.getSurname() + " " + i.getMail() + " " + i.getNumber());
+    public void list() {
+        for (int i = 0; i < book.size(); i++) {
+            recipe Recipe = book.get(i);
+
+            System.out.println("====================================\n"+(i+1)+"."+Recipe.getName());
+            System.out.println("СПИСОК ІНГРИДІЄНТІВ:");
+            for (int j = 0; j < Recipe.getIngredient().size(); j++) {
+                String ingredient = Recipe.getIngredient().get(j);
+            System.out.println((j+1)+") "+ingredient);
+            }
+            System.out.println("———————————————————");
+            System.out.println("МЕТОД ПРИГОТУВАННЯ:");
+            System.out.println(Recipe.getMethod()+"\n====================================\n");
         }
     }
     public void update(Scanner scan){
         System.out.println("Який елемент?");
         int el = scan.nextInt();
         String c = scan.nextLine();
-        System.out.println("Name:");
+        System.out.println("Назва рецепту:");
         String name = scan.nextLine();
-        System.out.println("Surname:");
-        String surname = scan.nextLine();
-        System.out.println("Mail:");
-        String mail = scan.nextLine();
-        System.out.println("Number:");
-        String number = scan.nextLine();
-
-        contacts.set((el-1), new contact(name, surname, mail, number));
+        System.out.println("Інгридієнти:");
+        String ing = scan.nextLine();
+        System.out.println("Спосіб приготування:");
+        String method = scan.nextLine();
+        List<String> ingredient = Arrays.asList(ing.split(", "));
+        book.set((el-1), new recipe(name, ingredient, method));
     }
     public void delete(Scanner scan){
         System.out.println("який елемент?");
         int l = scan.nextInt();
         String c = scan.nextLine();
-        contacts.remove(l-1);
+        book.remove(l-1);
     }
     public void sort(Scanner scan){
-        Collections.sort(contacts, new Comparator<contact>() {
+        Collections.sort(book, new Comparator<recipe>() {
             @Override
-            public int compare(contact o1, contact o2) {
+            public int compare(recipe o1, recipe o2) {
 
                 return o1.getName().compareTo(o2.getName());
             }
@@ -60,9 +66,9 @@ public class Functions {
     public void search(Scanner scan){
         System.out.println("Введіть ім'я");
         String d = scan.nextLine();
-        for(contact a : contacts){
+        for(recipe a : book){
             if(a.getName().contains(d)){
-                System.out.println(a.getName()+" " +a.getSurname()+" " +a.getMail()+" " +a.getNumber() );
+                System.out.println(a.getName()+" " +a.getIngredient()+" " +a.getMethod());
             }
         }
     }
